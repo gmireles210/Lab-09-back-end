@@ -21,6 +21,8 @@ client.connect();
 app.get('/location', getLocation);
 app.get('/weather', getWeather);
 app.get('/events', getEventBrite);
+app.get('/movies', getMovies);
+app.get('/yelp', getReviews);
 
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
@@ -150,3 +152,69 @@ function getEventBrite(request, response) {
 }
 
 
+
+// ******** MOVIE **********
+function Movie(title, overview, average_votes, image_url, popularity, released_on) {
+  this.title = title;
+  this.overview = overview;
+  this.average_votes = average_votes;
+  this.image_url = `https://image.tmdb.org/t/p/w500${image_url}`;
+  this.popularity = popularity;
+  this.released_on = released_on;
+}
+
+
+function getMovies(request, response) {
+  const url = `https://api.themoviedb.org/3/search/movie/?api_key=${process.env.MOVIE_API_KEY}&language=en-US&page=1&query=${request.query.data.search_query}`;
+  console.log('****** MOVIE URL :', url);
+  superagent.get(url).then(data => {
+    const parsedData = JSON.parse(data.text);
+    // console.log('****** MOVIE data :', parsedData)
+    const movieData = parsedData.results.map(data => {
+      console.log('****** MOVIE data :', data);
+      const title = data.title;
+      const overview = data.overview;
+      const average_votes = data.vote_average;
+      const image_url = data.poster_path;
+      const popularity = data.popularity;
+      const released_on = data.release_date;
+      return new Movie(title, overview, average_votes, image_url, popularity, released_on);
+    })
+    console.log('******movieData :', movieData);
+    response.status(200).send(movieData);
+  }).catch(err => {
+    console.error(err);
+    response.status(500).send('Status 500: Internal Server Error');
+  })
+}
+
+
+
+// ******** YELP **********
+function Yelp(name, image_url, price, rating, url) {
+  this.name = name;
+  this.image_url = image_url;
+  this.price = price;
+  this.rating = rating;
+  this.url = url;
+}
+
+
+function getReviews(request, response) {
+  const url = `https://api.yelp.com/v3/businesses/search?latitude=${request.query.data.latitude}&longitude=${request.query.data.longitude}`;
+  superagent.get(url).set('Authorization', `Bearer ${process.env.YELP_API_KEY}`).then(data => {
+    const parsedData = JSON.parse(data.text);
+    const yelpData = parsedData.businesses.map(business => {
+      const name = business.name;
+      const image_url = business.image_url;
+      const price = business.price;
+      const rating = business.rating;
+      const url = business.url;
+      return new Yelp(name, image_url, price, rating, url);
+    })
+    response.status(200).send(yelpData);
+  }).catch(err => {
+    console.error(err);
+    response.status(500).send('Status 500: Internal Server Error');
+  })
+}
