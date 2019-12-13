@@ -20,6 +20,6 @@ This project uses node.js, express, Heroku, Postgresql, and JS. The code was eve
 - 12-13-2019 - 1300 Successfully deployed entire app
 
 ## Credits and Collaborations
-Credit goes to Crystal and her amazing abilities to work well with me in pair programming
-Credit goes to Greg and his amazing abilities to work well with Crystal and pair program in a manner that works
-Great team work and a pleasure to work in this group
+- Credit goes to Crystal and her amazing abilities to work well with me in pair programming
+- Credit goes to Greg and his amazing abilities to work well with Crystal and pair program in a manner that works
+- Great team work and a pleasure to work in this group
