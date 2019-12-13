@@ -14,10 +14,10 @@ The steps would be to set-up a server on their machine, set-up Heroku for an app
 This project uses node.js, express, Heroku, Postgresql, and JS. The code was eventually broken down into modules that were called on through the server.js along with all relevant keys needed to access the specific sites. This was accomplished by using a .env, thus negating have live API keys on an open-sources platform.
 
 ## Change Log
-12-13-2019 - 1020 Built up rest of the code required to to pull movies and yelp reviews
-12-13-2019 - 1140 Built Heroku app to deploy services
-12-13-2019 - 1242 Database and all code ran without error
-12-13-2019 - 1300 Successfully deployed entire app
+- 12-13-2019 - 1020 Built up rest of the code required to to pull movies and yelp reviews
+- 12-13-2019 - 1140 Built Heroku app to deploy services
+- 12-13-2019 - 1242 Database and all code ran without error
+- 12-13-2019 - 1300 Successfully deployed entire app
 
 ## Credits and Collaborations
 Credit goes to Crystal and her amazing abilities to work well with me in pair programming
